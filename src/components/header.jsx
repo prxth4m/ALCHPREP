@@ -1,3 +1,4 @@
+//NOT USING THIS...
 // components/navbar.jsx
 "use client";
 import Link from "next/link";
@@ -16,7 +17,7 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
-export function Navbar() {
+export function Header() {
   const { setTheme, theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -28,11 +29,11 @@ export function Navbar() {
   // Don't render theme-dependent content until mounted
   if (!mounted) {
     return (
-      <header className="sticky top-0 z-50 w-full border-b border-transparent bg-transparent backdrop-blur-sm supports-[backdrop-filter]:bg-transparent">
-        <div className="container mx-auto max-w-6xl">
-          <div className="flex h-16 items-center justify-between px-8 md:px-12">
-            {/* Logo Section - Shifted towards center */}
-            <div className="flex items-center gap-3 flex-shrink-0 ml-4 md:ml-8">
+      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto">
+          <div className="flex h-16 items-center justify-between px-6">
+            {/* Logo Section */}
+            <div className="flex items-center gap-3">
               <div className="flex-shrink-0">
                 <Image
                   src="/alchprep-logo.svg"
@@ -50,23 +51,10 @@ export function Navbar() {
               </Link>
             </div>
             
-            {/* Centered navigation placeholder */}
-            <div className="hidden md:flex flex-1 justify-center mx-8">
-              <div className="flex items-center gap-8">
-                <div className="h-4 w-16 bg-muted rounded animate-pulse"></div>
-                <div className="h-4 w-14 bg-muted rounded animate-pulse"></div>
-              </div>
-            </div>
-            
-            {/* Skeleton for right side actions - Shifted towards center */}
-            <div className="hidden md:flex items-center gap-3 flex-shrink-0 mr-4 md:mr-8">
-              <div className="h-9 w-16 rounded border border-border/50 bg-muted animate-pulse"></div>
-              <div className="h-9 w-9 rounded-full border border-border/50 bg-muted animate-pulse"></div>
+            {/* Skeleton for theme toggle */}
+            <div className="flex items-center gap-3">
               <div className="h-9 w-9 rounded-full border border-border/50 bg-muted animate-pulse"></div>
             </div>
-
-            {/* Mobile menu button */}
-            <div className="md:hidden h-9 w-9 rounded border border-border/50 bg-muted animate-pulse mr-4"></div>
           </div>
         </div>
       </header>
@@ -128,11 +116,11 @@ export function Navbar() {
   );
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-transparent bg-transparent backdrop-blur-sm supports-[backdrop-filter]:bg-transparent">
-      <div className="container mx-auto max-w-6xl">
-        <div className="flex h-16 items-center justify-between px-8 md:px-12">
-          {/* Logo Section - Shifted towards center */}
-          <div className="flex items-center gap-3 flex-shrink-0 ml-4 md:ml-8">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60">
+      <div className="container mx-auto">
+        <div className="flex h-16 items-center justify-between px-6">
+          {/* Logo Section */}
+          <div className="flex items-center gap-3 flex-shrink-0">
             <div className="flex-shrink-0">
               <Image
                 src="/alchprep-logo.svg"
@@ -150,8 +138,8 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Desktop Navigation - Centered */}
-          <nav className="hidden md:flex items-center justify-center flex-1 mx-8">
+          {/* Centered Desktop Navigation */}
+          <nav className="hidden md:flex items-center justify-center flex-1">
             <div className="flex items-center gap-8">
               <Link
                 href="/dashboard"
@@ -168,6 +156,13 @@ export function Navbar() {
                 <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
               </Link>
               <Link
+                href="/practice"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:text-foreground relative group"
+              >
+                Practice
+                <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-200"></span>
+              </Link>
+              <Link
                 href="/about"
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:text-foreground relative group"
               >
@@ -177,8 +172,8 @@ export function Navbar() {
             </div>
           </nav>
 
-          {/* Right Side Actions - Shifted towards center */}
-          <div className="hidden md:flex items-center gap-3 flex-shrink-0 mr-4 md:mr-8">
+          {/* Right Side Actions */}
+          <div className="hidden md:flex items-center gap-3 flex-shrink-0">
             <Button
               asChild
               variant="default"
@@ -228,7 +223,7 @@ export function Navbar() {
               <Button
                 variant="ghost"
                 size="sm"
-                className="md:hidden h-9 w-9 p-0 hover:bg-accent transition-colors duration-200 mr-4"
+                className="md:hidden h-9 w-9 p-0 hover:bg-accent transition-colors duration-200"
               >
                 <Menu className="h-4 w-4" />
                 <span className="sr-only">Toggle navigation menu</span>

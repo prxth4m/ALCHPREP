@@ -1,12 +1,15 @@
-import Hero from "@/components/ui/Hero";
+import LenisProvider from "@/components/ui/lenisProvider";
+import HeroSection from "@/components/hero-section";
 import { Navbar } from "@/components/ui/Navbar";
-import Image from "next/image";
+
 
 export default function Home() {
   return (
    <section> 
-    <Navbar/>
-    <Hero/>
+    <LenisProvider>
+      <Navbar />
+      <HeroSection />
+    </LenisProvider>
    </section>
   );
 }
