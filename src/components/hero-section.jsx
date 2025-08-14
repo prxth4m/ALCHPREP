@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import Link from 'next/link'
 import { ArrowRight, ChevronRight } from 'lucide-react'
@@ -7,6 +8,8 @@ import { TextEffect } from '@/components/ui/text-effect'
 import { AnimatedGroup } from '@/components/ui/animated-group'
 import { ChartAreaInteractive } from './chart-area-interactive'
 import { Marquee } from './magicui/marquee'
+import  Pricing  from './pricing'
+import Footer from './Footer'
 import { MarqueeDemo } from './marquee'
 // import { Header } from './header'
 
@@ -273,14 +276,10 @@ export default function HeroSection() {
                     </div>
                 </section>
 
-                {/* Pricing Section */}
-                <section className="py-16">
-                    <div className="mx-auto max-w-7xl px-6">
-                        <h2 className="text-3xl font-bold">Pricing</h2>
-                        <p className="mt-4 text-lg">Choose the plan that's right for you.</p>
-                    </div>
-                </section>
+                 
+            <Pricing/>
             </main>
+            <Footer/>
         </>
     );
 }

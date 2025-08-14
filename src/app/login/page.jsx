@@ -55,7 +55,7 @@ const Login = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) router.push("/app");
+    if (token) router.push("/dashboard");
   }, [router]);
 
   useEffect(() => {
@@ -102,7 +102,7 @@ const Login = () => {
         localStorage.setItem("username", data.username);
         localStorage.setItem("email", data.email);
         toast.success("Login successful!", { position: "top-center" });
-        setTimeout(() => router.push("/app"), 1500);
+        setTimeout(() => router.push("/dashboard"), 1500);
       } else {
         toast.success("Signup successful! You can now login.", {
           position: "top-center",

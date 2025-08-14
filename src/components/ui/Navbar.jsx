@@ -34,13 +34,7 @@ export function Navbar() {
             {/* Logo Section - Shifted towards center */}
             <div className="flex items-center gap-3 flex-shrink-0 ml-4 md:ml-8">
               <div className="flex-shrink-0">
-                <Image
-                  src="/alchprep-logo.svg"
-                  alt="ALCHPREP Logo"
-                  width={32}
-                  height={32}
-                  className="h-8 w-8 rounded-md"
-                />
+                
               </div>
               <Link
                 href="/"
@@ -134,13 +128,7 @@ export function Navbar() {
           {/* Logo Section - Shifted towards center */}
           <div className="flex items-center gap-3 flex-shrink-0 ml-4 md:ml-8">
             <div className="flex-shrink-0">
-              <Image
-                src="/alchprep-logo.svg"
-                alt="ALCHPREP Logo"
-                width={32}
-                height={32}
-                className="h-8 w-8 rounded-md"
-              />
+              
             </div>
             <Link
               href="/"

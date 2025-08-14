@@ -1,4 +1,3 @@
-//NOT USING THIS...
 // components/navbar.jsx
 "use client";
 import Link from "next/link";
@@ -21,10 +20,13 @@ export function Header() {
   const { setTheme, theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Ensure component is mounted before accessing theme
+  // Set dark theme as default on first render
   useEffect(() => {
     setMounted(true);
-  }, []);
+    if (!theme) {
+      setTheme("dark");
+    }
+  }, [theme, setTheme]);
 
   // Don't render theme-dependent content until mounted
   if (!mounted) {
