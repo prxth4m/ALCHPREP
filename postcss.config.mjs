@@ -1,18 +1,16 @@
-const config = {
-  plugins: ["@tailwindcss/postcss"],
-};
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-   darkMode: 'class',
+const config = {
+  darkMode: 'class',
   content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}', // For App Router
-    './pages/**/*.{js,ts,jsx,tsx,mdx}', // For Pages Router (if you're using it)
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/**/*.{js,ts,jsx,tsx,mdx}', // If you use a 'src' directory
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {},
   },
   plugins: [],
 };
+
 export default config;
