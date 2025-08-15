@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
@@ -23,23 +24,36 @@ const navLinks = [
 ];
 
 export function Header() {
-  const { setTheme, theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
+    const token = localStorage.getItem('token');
+    const email = localStorage.getItem('email');
+    if (token || email) {
+      setIsLoggedIn(true);
+    }
     if (!localStorage.getItem("theme")) {
+      const { setTheme } = useTheme();
       setTheme("dark");
     }
-  }, [setTheme]);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    localStorage.removeItem('username');
+    setIsLoggedIn(false);
+    router.push('/');
+  };
 
   if (!mounted) {
     return (
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm">
         <div className="container mx-auto flex h-16 items-center justify-between px-6">
-          <Link href="/" className="text-xl font-bold tracking-tight">
-            ALCHPREP
-          </Link>
+          <Link href="/" className="text-xl font-bold tracking-tight">ALCHPREP</Link>
           <div className="h-9 w-9 animate-pulse rounded-full border border-border/50 bg-muted"></div>
         </div>
       </header>
@@ -49,37 +63,32 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-6">
-        {/* Logo */}
         <Link href="/" className="mr-6 flex items-center gap-2 text-xl font-bold tracking-tight text-foreground transition-colors hover:text-primary">
-        
+          <Package2 className="h-6 w-6" />
           <span>ALCHPREP</span>
         </Link>
-
-        {/* Desktop Navigation */}
         <nav className="hidden flex-1 items-center justify-center md:flex">
           <div className="flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="group relative text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:text-foreground"
-              >
+              <Link key={link.href} href={link.href} className="group relative text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
                 {link.label}
                 <span className="absolute inset-x-0 -bottom-1 h-0.5 scale-x-0 bg-primary transition-transform duration-200 group-hover:scale-x-100"></span>
               </Link>
             ))}
           </div>
         </nav>
-
-        {/* Desktop Actions */}
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
-          <UserMenu />
+          {isLoggedIn ? (
+            <UserMenu onLogout={handleLogout} />
+          ) : (
+            <Button asChild size="sm">
+              <Link href="/login">Login</Link>
+            </Button>
+          )}
         </div>
-
-        {/* Mobile Menu */}
         <div className="md:hidden">
-          <MobileSheet />
+          <MobileSheet isLoggedIn={isLoggedIn} onLogout={handleLogout} />
         </div>
       </div>
     </header>
@@ -89,7 +98,6 @@ export function Header() {
 // --- Sub-components ---
 const ThemeToggle = () => {
   const { setTheme, theme } = useTheme();
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -114,7 +122,7 @@ const ThemeToggle = () => {
   );
 };
 
-const UserMenu = () => (
+const UserMenu = ({ onLogout }) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
       <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-full border border-border/50 transition-colors hover:border-border hover:bg-accent">
@@ -128,12 +136,14 @@ const UserMenu = () => (
       <DropdownMenuItem>Settings</DropdownMenuItem>
       <DropdownMenuItem>Support</DropdownMenuItem>
       <DropdownMenuSeparator />
-      <DropdownMenuItem className="text-destructive focus:text-destructive">Logout</DropdownMenuItem>
+      <DropdownMenuItem onClick={onLogout} className="text-destructive focus:text-destructive cursor-pointer">
+        Logout
+      </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 );
 
-const MobileSheet = () => (
+const MobileSheet = ({ isLoggedIn, onLogout }) => (
   <Sheet>
     <SheetTrigger asChild>
       <Button variant="ghost" size="icon" className="h-9 w-9 p-0 hover:bg-accent">
@@ -148,7 +158,6 @@ const MobileSheet = () => (
           <span>ALCHPREP</span>
         </Link>
       </div>
-
       <nav className="flex flex-col gap-1 p-4">
         {navLinks.map((link) => (
           <SheetClose asChild key={link.href}>
@@ -158,15 +167,19 @@ const MobileSheet = () => (
           </SheetClose>
         ))}
       </nav>
-
       <div className="mt-auto border-t p-4">
+        {/* CORRECTED: This section now keeps the ThemeToggle stable */}
         <div className="flex items-center justify-between">
-          <UserMenu />
+          <div>
+            {isLoggedIn && <UserMenu onLogout={onLogout} />}
+          </div>
           <ThemeToggle />
         </div>
-        <Button asChild className="mt-4 w-full font-medium">
-          <Link href="/login">Login</Link>
-        </Button>
+        {!isLoggedIn && (
+          <Button asChild className="mt-4 w-full font-medium">
+            <Link href="/login">Login</Link>
+          </Button>
+        )}
       </div>
     </SheetContent>
   </Sheet>
