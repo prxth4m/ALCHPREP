@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes"; // ✅ next-themes
-import { Navbar } from "@/components/ui/Navbar";
+ 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CheckCircle, XCircle, Eye, EyeOff } from "lucide-react";
+import { Header } from "@/components/header";
 
 const PasswordCriteriaItem = ({ isMet, text }) => (
   <li
@@ -127,7 +128,7 @@ const Login = () => {
       }`}
     >
       <ToastContainer />
-      <Navbar />
+      <Header/>
       <div className="flex flex-col items-center mt-20 justify-center min-h-[80vh] px-4">
         <div
           className={`backdrop-blur-lg border my-6 p-8 rounded-2xl shadow-2xl max-w-md w-full transition-colors duration-300 ${
