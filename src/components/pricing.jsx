@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Check, X, Sun, Moon, Target, Users, BarChart3, BookOpen, Trophy, ShieldCheck, MessageCircle, GitFork } from 'lucide-react';
+import { Check, X, Target, Users, BarChart3, BookOpen, Trophy, ShieldCheck, MessageCircle, GitFork } from 'lucide-react';
 
 const Pricing = () => {
   const [theme, setTheme] = useState('dark');
@@ -9,10 +9,7 @@ const Pricing = () => {
     document.documentElement.className = theme;
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
-
+ 
   const plans = [
     {
       id: 'basic',
@@ -96,15 +93,7 @@ const Pricing = () => {
   return (
     <section className={`min-h-screen py-20 px-4 transition-colors duration-500 font-inter bg-zinc-50 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50`}>
       <div className="mx-auto max-w-7xl">
-        {/* Theme Toggle Button */}
-        <div className="flex justify-end mb-8">
-          <button
-            onClick={toggleTheme}
-            className={`p-3 rounded-full backdrop-blur-md transition-all duration-300 shadow-lg bg-white/70 text-zinc-600 hover:bg-white/90 border border-zinc-200 dark:bg-zinc-800/70 dark:text-zinc-300 dark:hover:bg-zinc-700/70 dark:border-zinc-700`}
-          >
-            {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </button>
-        </div>
+         
 
         {/* Header Section */}
         <div className="text-center mb-16">
