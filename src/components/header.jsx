@@ -27,6 +27,7 @@ export function Header() {
   const [mounted, setMounted] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
+  const { setTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -36,7 +37,6 @@ export function Header() {
       setIsLoggedIn(true);
     }
     if (!localStorage.getItem("theme")) {
-      const { setTheme } = useTheme();
       setTheme("dark");
     }
   }, []);
